@@ -26,7 +26,7 @@ class WebConfiguration {
 
 @SpringBootApplication
 public class Application {
-    //adasdads hgghg
+    //Hello World
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
     }
