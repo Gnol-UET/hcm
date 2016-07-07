@@ -105,7 +105,7 @@ public class PostService {
                 userDTO1.setFullName(post.getUser().getFullName());
                 userDTO1.setRole(post.getUser().getRole());
                 postDTO.setUserDTO1(userDTO1);
-                postDTO.setPostId(post.getUser().getId());
+                postDTO.setPostId(post.getId());
                 postDTOs.add(postDTO);
             }
             return postDTOs;
