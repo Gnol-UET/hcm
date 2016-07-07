@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @Configuration
 class WebConfiguration {
-    //
+    //kkk
     @Bean
     ServletRegistrationBean h2servletRegistration() {
         ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
