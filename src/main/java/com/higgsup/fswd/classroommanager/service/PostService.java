@@ -8,6 +8,7 @@ import com.higgsup.fswd.classroommanager.model.*;
 import com.higgsup.fswd.classroommanager.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,11 +175,14 @@ public class PostService {
         return postDTO1;
     }
 
+    @Transactional(readOnly = false)
     public String deletePost(Long postId, String token) {
         User user = userRepository.findByToken(token);
         Post post = postRepository.findById(postId);
         if (post.getClassRoom() != null && post.getGroupp() == null) {
-            if (post.getUser() == user) {
+            if (post.getUser().getId().equals(user.getId())) {
+                post.setUser(null);
+                post.setComments(null);
                 postRepository.delete(post);
                 return "delete post in class";
             } else {

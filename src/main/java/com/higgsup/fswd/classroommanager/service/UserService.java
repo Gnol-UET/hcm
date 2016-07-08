@@ -2,6 +2,7 @@ package com.higgsup.fswd.classroommanager.service;
 
 import com.higgsup.fswd.classroommanager.controller.dto.ClassRoomDTO;
 import com.higgsup.fswd.classroommanager.controller.dto.UserDTO;
+import com.higgsup.fswd.classroommanager.controller.dto.UserDTO1;
 import com.higgsup.fswd.classroommanager.model.ClassRoom;
 import com.higgsup.fswd.classroommanager.model.User;
 import com.higgsup.fswd.classroommanager.repository.UserRepository;
@@ -77,7 +78,11 @@ public class UserService {
 
         for (ClassRoom classRoom : classRooms) {
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
+            classRoomDTO.setClassId(classRoom.getId());
             classRoomDTO.setClassName(classRoom.getClassName());
+            UserDTO1 userDTO1 = new UserDTO1();
+            userDTO1.setUsername(classRoom.getUser().getUsername());
+            classRoomDTO.setUserDTO1(userDTO1);
             classRoomDTOs.add(classRoomDTO);
         }
         userDTO.setClassRoomDTOs(classRoomDTOs);

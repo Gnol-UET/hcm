@@ -40,7 +40,7 @@ public class CommentService {
                 postRepository.save(post);
 
                 commentDTOtrave.setCommentContent(commentDTO.getCommentContent());
-
+                commentDTOtrave.setId(commentDTO.getId());
                 UserDTO1 userDTO1 = new UserDTO1(); //clone thông tin user vào userDTO để khi comment trả về có tên user
                 userDTO1.setUsername(user.getUsername());
                 userDTO1.setFullName(user.getFullName());
@@ -96,6 +96,7 @@ public class CommentService {
             comment.setCommentContent(commentDTO.getCommentContent());
             comment = commentRepository.save(comment);
             commentDTO1.setCommentContent(comment.getCommentContent());
+            commentDTO1.setId(comment.getId());
             return commentDTO1;
         } else {
             throw new NullPointerException("koo phai nguoi viet cmt nay ");

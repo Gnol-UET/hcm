@@ -24,12 +24,12 @@ public class User extends HypermediaLinks {
         this.groupps = groupps;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,  orphanRemoval=true)
     @JoinTable(name = "user_has_posts",
-            joinColumns = {
+            inverseJoinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "id")
             },
-            inverseJoinColumns = {
+            joinColumns = {
                     @JoinColumn(name = "post_id", referencedColumnName = "id")
             }
     )

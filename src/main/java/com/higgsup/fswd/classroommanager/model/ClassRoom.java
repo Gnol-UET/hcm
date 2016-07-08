@@ -51,12 +51,12 @@ public class ClassRoom extends HypermediaLinks {
     )
     private List<Groupp> groupps = new ArrayList<Groupp>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinTable(name = "classroom_has_posts",
-            joinColumns = {
+            inverseJoinColumns = {
                     @JoinColumn(name = "class_id", referencedColumnName = "id")
             },
-            inverseJoinColumns = {
+            joinColumns = {
                     @JoinColumn(name = "post_id", referencedColumnName = "id")
             }
     )
