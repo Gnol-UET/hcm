@@ -141,9 +141,6 @@ public class PostService {
     }
 
 //LONGGGGGG
-//
-//
-//
 
     public PostDTO editPost(Long postId, PostDTO postDTO, String token) {
         User user = userRepository.findByToken(token);
@@ -238,6 +235,7 @@ public class PostService {
                 for (Comment comment : comments) {
                     CommentDTO commentDTO = new CommentDTO();
                     commentDTO.setCommentContent(comment.getCommentContent());
+                    commentDTO.setId(comment.getId());
                     UserDTO1 userDTO1 = new UserDTO1();
                     userDTO1.setUsername(comment.getUser().getUsername());
                     userDTO1.setFullName(comment.getUser().getFullName());
@@ -271,6 +269,7 @@ public class PostService {
                 for (Comment comment : comments) {
                     CommentDTO commentDTO = new CommentDTO();
                     commentDTO.setCommentContent(comment.getCommentContent());
+                    commentDTO.setId(comment.getId());
                     UserDTO1 userDTO1 = new UserDTO1();
                     userDTO1.setUsername(comment.getUser().getUsername());
                     userDTO1.setFullName(comment.getUser().getFullName());

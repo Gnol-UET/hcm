@@ -69,6 +69,7 @@ public class CommentService {
                 userDTO1.setFullName(user.getFullName());
                 userDTO1.setRole(user.getRole());
                 commentDTOtrave.setUserDTO1(userDTO1);
+
             } else {
                 throw new NullPointerException("koo trong class ");
             }
@@ -84,8 +85,7 @@ public class CommentService {
     }
 
     //LONG
-//
-//
+
     public CommentDTO editCommentInPost(String token, Long commentId, CommentDTO commentDTO) {
         User user = userRepository.findByToken(token);
         Comment comment = commentRepository.findById(commentId);
@@ -104,8 +104,7 @@ public class CommentService {
     }
 
     //LONG
-//
-//
+
     public String deleteComment(Long commentId, String token) {
         User user = userRepository.findByToken(token);
         Comment comment = commentRepository.findById(commentId);
