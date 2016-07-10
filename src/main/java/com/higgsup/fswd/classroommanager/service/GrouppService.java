@@ -194,4 +194,26 @@ public class GrouppService {
             throw new NullPointerException("ko phai thuoc class");
         }
     }
+
+    public List<GrouppDTO> getEnrollGroup(Long classId, String token) {
+        User user = userRepository.findByToken(token);
+        ClassRoom classRoom = classRoomRepository.findById(classId);
+        List<User> users = classRoom.getUsers();
+        List<GrouppDTO> grouppDTOs = new ArrayList<GrouppDTO>();
+        if (users.contains(user)) {
+            List<Groupp> groupps = classRoom.getGroupps();
+            for (Groupp groupp : groupps) {
+                if (groupp.getUsers().contains(user)){
+                    GrouppDTO grouppDTO = new GrouppDTO();
+                    grouppDTO.setGroupName(groupp.getGroupName());
+                    grouppDTO.setGroupId(groupp.getId());
+                    grouppDTOs.add(grouppDTO);
+                }
+            }
+            return grouppDTOs;
+        } else {
+            throw new NullPointerException("ko phai thuoc class");
+        }
+
+    }
 }

@@ -83,5 +83,12 @@ public class GrouppController {
         String token = request.getHeader("auth-token");
         return grouppService.getNotEnrollGroup(classId,token);
     }
+    @RequiredRoles(Role.STUDENT)
+    @RequestMapping(value = "/classes/{class_id}/groups/EnrollGroup",method = RequestMethod.GET)
+    public List<GrouppDTO> getEnrollGroup(@PathVariable("class_id") Long classId,HttpServletRequest request){
+        String token = request.getHeader("auth-token");
+        return grouppService.getEnrollGroup(classId,token);
+    }
+
 
 }
