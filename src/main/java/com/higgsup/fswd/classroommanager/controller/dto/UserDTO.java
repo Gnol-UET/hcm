@@ -18,6 +18,7 @@ public class UserDTO {
     private String token;
 
     private List<ClassRoomDTO> classRoomDTOs;
+    private List<GrouppDTO> grouppDTOs;
 
     public String getToken() {
         return token;
@@ -66,5 +67,13 @@ public class UserDTO {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public List<GrouppDTO> getGrouppDTOs() {
+        return grouppDTOs;
+    }
+
+    public void setGrouppDTOs(List<GrouppDTO> grouppDTOs) {
+        this.grouppDTOs = grouppDTOs;
     }
 }

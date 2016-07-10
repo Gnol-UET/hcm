@@ -109,7 +109,11 @@ public class CommentService {
     public String deleteComment(Long commentId, String token) {
         User user = userRepository.findByToken(token);
         Comment comment = commentRepository.findById(commentId);
+        Post post = comment.getPost();
         if (comment.getUser() == user) {
+            post.getComments().remove(comment);
+            postRepository.save(post);
+
             commentRepository.delete(comment);
             return "Đã xóa comment viết bởi " + user.getUsername();
         } else {

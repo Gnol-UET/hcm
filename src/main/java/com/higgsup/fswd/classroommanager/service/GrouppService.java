@@ -110,9 +110,17 @@ public class GrouppService {
     public String deleteGroupp(Long groupId, String token) {
         User user = userRepository.findByToken(token);
         Groupp groupp = grouppRepository.findById(groupId);
-
+        ClassRoom classRoom = groupp.getClassRoom();
         if (groupp.getClassRoom().getUser() == user) {
             //delete
+            user.getGroupps().remove(groupp);
+            userRepository.save(user);
+
+            groupp.getClassRoom().getGroupps().remove(groupp);
+            classRoomRepository.save(classRoom);
+
+            groupp.getPosts().clear();
+
             grouppRepository.delete(groupp);
 
             return "delete success";
@@ -164,5 +172,26 @@ public class GrouppService {
 
         }
         return grouppDTO1;
+    }
+
+    public List<GrouppDTO> getNotEnrollGroup(Long classId, String token) {
+        User user = userRepository.findByToken(token);
+        ClassRoom classRoom = classRoomRepository.findById(classId);
+        List<User> users = classRoom.getUsers();
+        List<GrouppDTO> grouppDTOs = new ArrayList<GrouppDTO>();
+        if (users.contains(user)) {
+            List<Groupp> groupps = classRoom.getGroupps();
+            for (Groupp groupp : groupps) {
+                if (!groupp.getUsers().contains(user)){
+                    GrouppDTO grouppDTO = new GrouppDTO();
+                    grouppDTO.setGroupName(groupp.getGroupName());
+                    grouppDTO.setGroupId(groupp.getId());
+                    grouppDTOs.add(grouppDTO);
+                }
+            }
+            return grouppDTOs;
+        } else {
+            throw new NullPointerException("ko phai thuoc class");
+        }
     }
 }

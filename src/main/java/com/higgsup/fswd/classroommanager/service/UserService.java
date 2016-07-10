@@ -1,9 +1,11 @@
 package com.higgsup.fswd.classroommanager.service;
 
 import com.higgsup.fswd.classroommanager.controller.dto.ClassRoomDTO;
+import com.higgsup.fswd.classroommanager.controller.dto.GrouppDTO;
 import com.higgsup.fswd.classroommanager.controller.dto.UserDTO;
 import com.higgsup.fswd.classroommanager.controller.dto.UserDTO1;
 import com.higgsup.fswd.classroommanager.model.ClassRoom;
+import com.higgsup.fswd.classroommanager.model.Groupp;
 import com.higgsup.fswd.classroommanager.model.User;
 import com.higgsup.fswd.classroommanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +77,8 @@ public class UserService {
         userDTO.setRole(user.getRole());
         List<ClassRoom> classRooms = user.getClassRooms();
         List<ClassRoomDTO> classRoomDTOs = new ArrayList<ClassRoomDTO>();
+        List<Groupp> groupps = user.getGroupps();
+        List<GrouppDTO> grouppDTOs = new ArrayList<GrouppDTO>();
 
         for (ClassRoom classRoom : classRooms) {
             ClassRoomDTO classRoomDTO = new ClassRoomDTO();
@@ -85,7 +89,14 @@ public class UserService {
             classRoomDTO.setUserDTO1(userDTO1);
             classRoomDTOs.add(classRoomDTO);
         }
+        for (Groupp groupp: groupps){
+            GrouppDTO grouppDTO = new GrouppDTO();
+            grouppDTO.setGroupId(groupp.getId());
+            grouppDTO.setGroupName(groupp.getGroupName());
+            grouppDTOs.add(grouppDTO);
+        }
         userDTO.setClassRoomDTOs(classRoomDTOs);
+        userDTO.setGrouppDTOs(grouppDTOs);
         return userDTO;
     }
 

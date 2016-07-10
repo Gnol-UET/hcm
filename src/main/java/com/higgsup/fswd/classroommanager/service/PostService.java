@@ -179,11 +179,19 @@ public class PostService {
     public String deletePost(Long postId, String token) {
         User user = userRepository.findByToken(token);
         Post post = postRepository.findById(postId);
+        ClassRoom classRoom = post.getClassRoom();
+        Groupp groupp =post.getGroupp();
         if (post.getClassRoom() != null && post.getGroupp() == null) {
             if (post.getUser().getId().equals(user.getId())) {
-                post.setUser(null);
-                post.setComments(null);
+                user.getPosts().remove(post);
+                userRepository.save(user);
+
+                classRoom.getPosts().remove(post);
+                classRoomRepository.save(classRoom);
+
+                post.getComments().clear();
                 postRepository.delete(post);
+
                 return "delete post in class";
             } else {
                 throw new NullPointerException("ko phai user nay viet ");
@@ -191,19 +199,15 @@ public class PostService {
         }
 
         if (post.getClassRoom() == null && post.getGroupp() != null) {
-            if (post.getUser() == user) {
+            if (post.getUser().getId().equals(user.getId())) {
                 //STUDENT delete post
-                List<Comment> comments = post.getComments();
-                for (Comment comment : comments) {
-                    comment.setPost(null);
-                    comment.setUser(null);
-                }
-                post.getComments().clear();
-                post.getGroupp().getPosts().remove(post);
-                post.setGroupp(null);//class
-                post.getUser().getPosts().remove(post);
-                post.setUser(null);//user
+                user.getPosts().remove(post);
+                userRepository.save(user);
 
+                groupp.getPosts().remove(post);
+                grouppRepository.save(groupp);
+
+                post.getComments().clear();
                 postRepository.delete(post);
                 return "delete post in group";
             } else {

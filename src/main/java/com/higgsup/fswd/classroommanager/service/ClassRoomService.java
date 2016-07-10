@@ -103,7 +103,15 @@ public class ClassRoomService {
     public String deleteClassRoom(Long id, String token) {
         User user = userRepository.findByToken(token);
         ClassRoom classRoom = classRoomRepository.findById(id);
+
         if (classRoom.getUser() == user) {
+            user.getClassRooms().remove(classRoom);
+            userRepository.save(user);
+
+            classRoom.getPosts().clear();
+
+            classRoom.getGroupps().clear();
+
             classRoomRepository.delete(classRoom);
             return "delete";
         } else {

@@ -68,5 +68,8 @@ public class UserController {
         String token = request.getHeader("auth-token");
         return userService.findUser(token);
     }
+//    @RequiredRoles(Role.STUDENT)
+//    @RequestMapping(value = "/mygroup",method = RequestMethod.GET)
+//    public
 
 }
